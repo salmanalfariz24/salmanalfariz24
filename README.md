@@ -42,17 +42,17 @@ edu     B.S. Computer Science ....................... BINUS University
 ## 📦 Resources loaded · Tech stack
 
 <p align="left">
-  <img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" title="JavaScript" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/typescript" alt="TypeScript" title="TypeScript" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/react" alt="React" title="React" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/reactrouter" alt="React Router" title="React Router" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" title="Node.js" width="40" height="40" />&nbsp;&nbsp;
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/express/ffffff" /><img src="https://cdn.simpleicons.org/express/000000" alt="Express" title="Express" width="40" height="40" /></picture>&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/nestjs" alt="NestJS" title="NestJS" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/go" alt="Go" title="Go" width="40" height="40" />&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/docker" alt="Docker" title="Docker" width="40" height="40" />&nbsp;&nbsp;
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/railway/ffffff" /><img src="https://cdn.simpleicons.org/railway/000000" alt="Railway" title="Railway" width="40" height="40" /></picture>&nbsp;&nbsp;
-  <img src="https://apify.com/img/apify-logo/logomark-32x32.svg" alt="Apify" title="Apify" width="40" height="40" />&nbsp;&nbsp;
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" title="JavaScript" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://www.typescriptlang.org/"><img src="https://cdn.simpleicons.org/typescript" alt="TypeScript" title="TypeScript" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://react.dev/"><img src="https://cdn.simpleicons.org/react" alt="React" title="React" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://reactrouter.com/"><img src="https://cdn.simpleicons.org/reactrouter" alt="React Router" title="React Router" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://nodejs.org/"><img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" title="Node.js" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://expressjs.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/express/ffffff" /><img src="https://cdn.simpleicons.org/express/000000" alt="Express" title="Express" width="40" height="40" /></picture></a>&nbsp;&nbsp;
+  <a href="https://nestjs.com/"><img src="https://cdn.simpleicons.org/nestjs" alt="NestJS" title="NestJS" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://go.dev/"><img src="https://cdn.simpleicons.org/go" alt="Go" title="Go" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://www.docker.com/"><img src="https://cdn.simpleicons.org/docker" alt="Docker" title="Docker" width="40" height="40" /></a>&nbsp;&nbsp;
+  <a href="https://railway.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.simpleicons.org/railway/ffffff" /><img src="https://cdn.simpleicons.org/railway/000000" alt="Railway" title="Railway" width="40" height="40" /></picture></a>&nbsp;&nbsp;
+  <a href="https://apify.com/"><img src="https://apify.com/img/apify-logo/logomark-32x32.svg" alt="Apify" title="Apify" width="40" height="40" /></a>&nbsp;&nbsp;
 </p>
 
 ## 🖱️ Time to interactive · Contact

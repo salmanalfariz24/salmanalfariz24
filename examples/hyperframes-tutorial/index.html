@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>HTML in. MP4 out.</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+:root{--bg:#0a0c10;--sf:#12161d;--sf2:#181d26;--ln:#262d3a;--tx:#eef1f6;--mu:#97a0b2;--dim:#5d6678;--ac:#5eead4}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg)}
+body{font-family:"Inter",sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased}
+.mono{font-family:"JetBrains Mono",monospace}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg)}
+#grid{position:absolute;inset:0;background-image:radial-gradient(rgba(238,241,246,.07) 1.5px,transparent 1.5px);background-size:48px 48px}
+#glow{position:absolute;left:-400px;top:-500px;width:1600px;height:1600px;border-radius:50%;background:radial-gradient(circle,rgba(94,234,212,.13) 0%,rgba(94,234,212,0) 62%)}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.6) 100%)}
+.sc{position:absolute;inset:0;opacity:0;visibility:hidden}
+.ac{color:var(--ac)}
+/* chrome */
+#brand{position:absolute;top:56px;right:120px;font-size:24px;color:var(--mu);opacity:0}
+#prog{position:absolute;left:0;bottom:0;height:6px;width:1920px;background:var(--ac);transform-origin:left center;transform:scaleX(0)}
+/* step header */
+.hd{position:absolute;left:120px;top:96px}
+.kick{font-size:26px;font-weight:700;letter-spacing:.14em;color:var(--ac)}
+.ttl{font-size:84px;font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-top:14px}
+.sub{font-size:34px;color:var(--mu);margin-top:16px}
+.card{position:absolute;background:var(--sf);border:1px solid var(--ln);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden}
+.bar{height:60px;background:var(--sf2);border-bottom:1px solid var(--ln);display:flex;align-items:center;padding:0 26px;gap:12px}
+.dot{width:14px;height:14px;border-radius:50%;background:#2e3646}
+.fname{margin-left:14px;font-size:22px;color:var(--mu)}
+/* code */
+.code{position:relative;padding:34px 40px;font-size:29px;line-height:50px}
+.row{height:50px;white-space:pre}
+.ln{display:inline-block;white-space:pre;clip-path:inset(0 100% 0 0)}
+.t{color:var(--ac)}.a{color:#9fb0cf}.s{color:#f3f5f9}.p{color:var(--dim)}.k{color:#f3f5f9;font-weight:700}.w{color:#d6dbe5}
+#caret{position:absolute;left:40px;top:42px;width:15px;height:34px;background:var(--ac);border-radius:2px}
+/* S1 */
+#s1 .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#s1 .repo{font-size:30px;color:var(--mu);letter-spacing:.02em}
+#s1 .big{font-size:168px;font-weight:900;letter-spacing:-.035em;line-height:1.02}
+#s1 .lead{font-size:38px;color:var(--mu);margin-top:34px}
+#pill{margin-top:56px;display:flex;align-items:center;gap:18px;padding:20px 34px;border:1px solid rgba(94,234,212,.45);border-radius:999px;background:rgba(94,234,212,.08);font-size:32px;font-weight:700}
+.rec{width:18px;height:18px;border-radius:50%;background:var(--ac);box-shadow:0 0 18px rgba(94,234,212,.8)}
+/* S2 rules */
+.rule{position:absolute;left:1290px;width:510px;height:122px;padding:22px 30px;border-left:4px solid var(--ac);background:rgba(18,22,29,.85);border-radius:0 14px 14px 0}
+.rule .rk{font-size:24px;color:var(--ac)}
+.rule .rv{font-size:30px;font-weight:700;margin-top:8px;line-height:1.25}
+/* S3 console */
+.lbl{font-size:24px;font-weight:700;color:var(--mu);margin-bottom:12px}
+.field{background:#0d1016;border:1px solid var(--ln);border-radius:12px;padding:18px 22px;font-size:21px;line-height:34px;color:#7f8aa0;white-space:pre}
+.sel{display:inline-flex;align-items:center;gap:40px;background:#0d1016;border:1px solid var(--ln);border-radius:12px;padding:14px 22px;font-size:28px;font-weight:700}
+#start{position:absolute;left:44px;bottom:44px;display:flex;align-items:center;gap:14px;padding:18px 40px;background:var(--ac);color:#04201b;border-radius:12px;font-size:30px;font-weight:900}
+#cursor{position:absolute;left:0;top:0;width:44px;height:44px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+#runtag{position:absolute;left:300px;bottom:58px;font-size:26px;font-weight:700;color:var(--ac);opacity:0}
+.api{padding:36px 44px;font-size:28px;line-height:48px;white-space:pre}
+.api .r{opacity:0}
+.mth{color:#04201b;background:var(--ac);font-weight:700;padding:2px 12px;border-radius:6px}
+/* S4 */
+#cnt{position:absolute;left:0;width:1920px;top:330px;text-align:center}
+#num{font-size:200px;font-weight:700;letter-spacing:-.04em;line-height:1}
+#cnt .of{font-size:40px;color:var(--mu);margin-top:6px}
+#track{position:absolute;left:360px;top:620px;width:1200px;height:12px;border-radius:6px;background:var(--sf2);overflow:hidden}
+#fill{width:100%;height:100%;background:var(--ac);transform-origin:left center;transform:scaleX(0)}
+#chips{position:absolute;left:0;width:1920px;top:700px;display:flex;justify-content:center;gap:28px}
+.chip{display:flex;align-items:center;gap:16px;padding:20px 30px;border:1px solid var(--ln);border-radius:16px;background:var(--sf);font-size:30px;font-weight:700}
+.chip .n{font-size:22px;color:var(--ac)}
+.arr{align-self:center;font-size:34px;color:var(--dim)}
+#nothing{position:absolute;left:0;width:1920px;top:860px;text-align:center;font-size:52px;font-weight:900;letter-spacing:-.01em}
+#nothing span{color:var(--mu);font-weight:400;font-size:36px;display:block;margin-top:12px;letter-spacing:0}
+/* S5 */
+.kv{display:flex;align-items:center;gap:22px;padding:26px 36px;border-bottom:1px solid var(--ln);font-size:30px}
+.kv .key{font-weight:700;min-width:260px}
+.kv .meta{font-size:22px;color:var(--mu)}
+.dl{margin-left:auto;width:52px;height:52px;border-radius:12px;background:var(--ac);display:flex;align-items:center;justify-content:center}
+.json{padding:30px 40px;font-size:27px;line-height:46px;white-space:pre}
+.json .r{opacity:0}
+#keep{position:absolute;left:124px;top:690px;font-size:28px;line-height:1.45;color:var(--mu);opacity:0}
+#price{position:absolute;left:120px;top:880px;width:1680px;display:flex;align-items:baseline;justify-content:space-between}
+#price .pl{font-size:50px;font-weight:900;letter-spacing:-.01em}
+#price .pr{font-size:32px;color:var(--mu)}
+/* S6 */
+#s6 .c{position:absolute;left:0;top:200px;width:1920px;display:flex;flex-direction:column;align-items:center}
+#s6 .big{font-size:132px;font-weight:900;letter-spacing:-.035em;line-height:1.05}
+#url{margin-top:54px;padding:24px 44px;border:2px solid var(--ac);border-radius:18px;font-size:52px;font-weight:700;background:rgba(94,234,212,.07)}
+#try{margin-top:40px;font-size:38px;font-weight:700}
+#made{margin-top:20px;font-size:30px;color:var(--mu)}
+#disc{position:absolute;left:0;width:1920px;top:900px;text-align:center;font-size:29px;color:#b9c1d0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="tutorial" data-width="1920" data-height="1080" data-duration="36" data-fps="60">
+  <div id="grid"></div><div id="glow"></div><div id="vig"></div>
+
+  <!-- S1 hook -->
+  <div id="s1" class="sc"><div class="c">
+    <div class="repo mono" id="s1repo">apify.com/optimdex/hyperframes-render</div>
+    <div class="big" id="s1a" style="margin-top:30px">HTML in.</div>
+    <div class="big ac" id="s1b">MP4 out.</div>
+    <div class="lead" id="s1lead">MP4 Renderer for HyperFrames (Unofficial) &middot; an Apify actor</div>
+    <div id="pill"><span class="rec"></span>This video was rendered by the actor it's teaching.</div>
+  </div></div>
+
+  <!-- S2 write -->
+  <div id="s2" class="sc">
+    <div class="hd"><div class="kick">STEP 1 / 4</div><div class="ttl">Write a composition</div><div class="sub">One HTML file. Timing in data attributes, motion in GSAP.</div></div>
+    <div class="card" id="ed" style="left:120px;top:370px;width:1120px;height:600px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname mono">index.html</span></div>
+      <div class="code mono" id="code"><div id="caret"></div></div>
+    </div>
+    <div class="rule" id="r1" style="top:370px"><div class="rk mono">data-composition-id</div><div class="rv">Names the root element</div></div>
+    <div class="rule" id="r2" style="top:529px"><div class="rk mono">data-width &middot; data-height</div><div class="rv">Even, up to 1920&times;1080</div></div>
+    <div class="rule" id="r3" style="top:688px"><div class="rk mono">data-duration</div><div class="rv">Seconds, up to 120</div></div>
+    <div class="rule" id="r4" style="top:847px"><div class="rk mono">window.__timelines</div><div class="rv">A paused, seekable timeline</div></div>
+  </div>
+
+  <!-- S3 send -->
+  <div id="s3" class="sc">
+    <div class="hd"><div class="kick">STEP 2 / 4</div><div class="ttl">Send it to the actor</div><div class="sub">Paste it into Inline HTML and click Start, or call the API.</div></div>
+    <div class="card" id="con" style="left:120px;top:370px;width:720px;height:600px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">Apify Console &middot; Input</span></div>
+      <div style="padding:30px 44px">
+        <div class="lbl">Inline HTML</div>
+        <div class="field mono">&lt;div data-composition-id="promo"
+     data-width="1920" data-height="1080"
+     data-duration="36" data-fps="60"&gt;
+  ...</div>
+        <div class="lbl" style="margin-top:28px">Frames per second</div>
+        <div class="sel">60 <span style="color:var(--dim);font-size:20px">&#9660;</span></div>
+      </div>
+      <div id="start">&#9654; Start</div>
+      <div id="runtag" class="mono">Running&hellip;</div>
+      <svg id="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15 L12.5 22 L15.5 20.5 L12 13.5 L19 13.5 Z" fill="#fff" stroke="#0a0c10" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="card" id="apic" style="left:880px;top:370px;width:920px;height:600px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">or call the API</span></div>
+      <div class="api mono" id="api"><div class="r"><span class="mth">POST</span> <span class="s">https://api.apify.com</span></div><div class="r"><span class="s">/v2/actors/optimdex~hyperframes-render/runs</span></div><div class="r"><span class="a">Authorization:</span> <span class="w">Bearer $APIFY_TOKEN</span></div><div class="r"><span class="a">Content-Type:</span> <span class="w">application/json</span></div><div class="r"> </div><div class="r"><span class="p">{</span></div><div class="r">  <span class="a">"html"</span><span class="p">:</span> <span class="s">"&lt;!DOCTYPE html&gt;&hellip;"</span><span class="p">,</span></div><div class="r">  <span class="a">"fps"</span><span class="p">:</span> <span class="t">60</span></div><div class="r"><span class="p">}</span></div></div>
+    </div>
+  </div>
+
+  <!-- S4 render -->
+  <div id="s4" class="sc">
+    <div class="hd"><div class="kick">STEP 3 / 4</div><div class="ttl">Let it render in the cloud</div></div>
+    <div id="cnt"><div id="num" class="mono">0</div><div class="of">of 2160 frames &middot; 36 s at 60 fps</div></div>
+    <div id="track"><div id="fill"></div></div>
+    <div id="chips">
+      <div class="chip" id="c1"><span class="n mono">01</span>Seek each frame</div><div class="arr" id="a1">&rarr;</div>
+      <div class="chip" id="c2"><span class="n mono">02</span>Capture in headless Chrome</div><div class="arr" id="a2">&rarr;</div>
+      <div class="chip" id="c3"><span class="n mono">03</span>Encode H.264 with FFmpeg</div>
+    </div>
+    <div id="nothing">Nothing to install.<span>No Chrome, no ffmpeg, no render server.</span></div>
+  </div>
+
+  <!-- S5 get -->
+  <div id="s5" class="sc">
+    <div class="hd"><div class="kick">STEP 4 / 4</div><div class="ttl">Get your MP4</div><div class="sub">Download render.mp4, or grab videoUrl from the dataset.</div></div>
+    <div class="card" id="kvc" style="left:120px;top:370px;width:760px;height:276px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">Key-value store</span></div>
+      <div class="kv" id="kv1"><span class="key mono">render.mp4</span><span class="meta">H.264 &middot; 1920&times;1080</span><span class="dl"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" stroke="#04201b" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      <div class="kv" id="kv2" style="border:0"><span class="key mono">OUTPUT</span><span class="meta">status: succeeded</span></div>
+    </div>
+    <div id="keep">Run storage may be deleted after 7 days.<br>Download the MP4 to keep it.</div>
+    <div class="card" id="dsc" style="left:920px;top:370px;width:880px;height:450px">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">Dataset row</span></div>
+      <div class="json mono" id="js"><div class="r"><span class="p">{</span></div><div class="r">  <span class="a">"status"</span><span class="p">:</span> <span class="t">"succeeded"</span><span class="p">,</span></div><div class="r">  <span class="a">"videoUrl"</span><span class="p">:</span> <span class="s">"&hellip;/records/render.mp4"</span><span class="p">,</span></div><div class="r">  <span class="a">"totalFrames"</span><span class="p">:</span> <span class="s">2160</span><span class="p">,</span></div><div class="r">  <span class="a">"frameUnits"</span><span class="p">:</span> <span class="s">72</span><span class="p">,</span></div><div class="r">  <span class="a">"expectedChargeUsd"</span><span class="p">:</span> <span class="t">0.46</span></div><div class="r"><span class="p">}</span></div></div>
+    </div>
+    <div id="price"><div class="pl">$0.10 per render <span class="ac">+</span> $0.005 per 30 frames</div><div class="pr">Failed runs aren't charged for rendering.</div></div>
+  </div>
+
+  <!-- S6 outro -->
+  <div id="s6" class="sc">
+    <div class="c">
+      <div class="big" id="o1">HTML in. <span class="ac">MP4 out.</span></div>
+      <div id="url" class="mono">apify.com/optimdex/hyperframes-render</div>
+      <div id="try">Open it and try the prefilled example.</div>
+      <div id="made">This video was rendered by that actor, from one HTML file.</div>
+    </div>
+    <div id="disc">Unofficial. Not affiliated with, endorsed by, or sponsored by HeyGen. HyperFrames is a project of HeyGen, Inc.</div>
+  </div>
+
+  <div id="brand" class="mono">optimdex/hyperframes-render</div>
+  <div id="prog"></div>
+</div>
+<script>
+(function(){
+  var CODE=[
+    [["t","<div"],["a"," id"],["p","="],["s",'"root"'],["a"," data-composition-id"],["p","="],["s",'"promo"']],
+    [["a","     data-width"],["p","="],["s",'"1920"'],["a"," data-height"],["p","="],["s",'"1080"']],
+    [["a","     data-duration"],["p","="],["s",'"36"'],["a"," data-fps"],["p","="],["s",'"60"'],["t",">"]],
+    [["w","  "],["t","<h1"],["a"," id"],["p","="],["s",'"title"'],["t",">"],["w","HTML in. MP4 out."],["t","</h1>"]],
+    [["t","</div>"]],
+    [["t","<script>"]],
+    [["k","  const"],["w"," tl = gsap.timeline"],["p","({ "],["w","paused: "],["k","true"],["p"," });"]],
+    [["w","  tl.from"],["p","("],["s",'"#title"'],["p",", { "],["w","opacity: 0, y: 40"],["p"," });"]],
+    [["w","  window.__timelines"],["p","["],["s",'"promo"'],["p","]"],["w"," = tl;"]],
+    [["t","</scr"+"ipt>"]]
+  ];
+  var code=document.getElementById("code"),caret=document.getElementById("caret"),LENS=[];
+  CODE.forEach(function(segs,i){
+    var row=document.createElement("div");row.className="row";
+    var ln=document.createElement("span");ln.className="ln";ln.id="ln"+i;var n=0;
+    segs.forEach(function(sg){var sp=document.createElement("span");sp.className=sg[0];sp.textContent=sg[1];n+=sg[1].length;ln.appendChild(sp);});
+    LENS.push(n);row.appendChild(ln);code.insertBefore(row,caret);
+  });
+
+  window.__timelines=window.__timelines||{};
+  var tl=gsap.timeline({paused:true});
+  var E="power3.out";
+  function sIn(id,t){tl.fromTo(id,{autoAlpha:0},{autoAlpha:1,duration:.5,ease:"power2.out"},t);}
+  function sOut(id,t){tl.to(id,{autoAlpha:0,duration:.45,ease:"power2.in"},t);tl.set(id,{autoAlpha:0},t+.46);}
+  function up(sel,t,d,st){tl.fromTo(sel,{autoAlpha:0,y:d||40},{autoAlpha:1,y:0,duration:.7,ease:E,stagger:st||0},t);}
+  function hd(sc,t){up(sc+" .kick",t+.05,24);up(sc+" .ttl",t+.12,40);up(sc+" .sub",t+.25,30);}
+
+  /* background + chrome */
+  tl.fromTo("#glow",{x:0,y:0},{x:1100,y:420,duration:36,ease:"sine.inOut"},0);
+  tl.fromTo("#prog",{scaleX:0},{scaleX:1,duration:36,ease:"none"},0);
+  tl.fromTo("#brand",{autoAlpha:0},{autoAlpha:1,duration:.5},4.6);
+  tl.to("#brand",{autoAlpha:0,duration:.4},29.2);
+
+  /* S1 hook 0-4.6 */
+  tl.set("#s1",{autoAlpha:1},0);
+  up("#s1repo",.15,20);
+  up("#s1a",.35,70);
+  up("#s1b",.95,70);
+  up("#s1lead",1.6,30);
+  tl.fromTo("#pill",{autoAlpha:0,scale:.92},{autoAlpha:1,scale:1,duration:.6,ease:"back.out(1.8)"},2.3);
+  tl.fromTo("#s1 .rec",{opacity:1},{opacity:.25,duration:.4,repeat:3,yoyo:true,ease:"sine.inOut"},2.9);
+  tl.to("#s1 .c",{autoAlpha:0,y:-30,duration:.45,ease:"power2.in"},4.15);
+  tl.set("#s1",{autoAlpha:0},4.62);
+
+  /* S2 write 4.6-11.2 */
+  sIn("#s2",4.6);hd("#s2",4.6);
+  tl.fromTo("#ed",{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},4.85);
+  tl.set("#caret",{autoAlpha:0},0);tl.set("#caret",{autoAlpha:1},5.3);
+  var t=5.45,CPS=78,RULE={0:"#r1",1:"#r2",2:"#r3",8:"#r4"};
+  for(var i=0;i<CODE.length;i++){
+    var n=LENS[i],d=Math.max(.12,n/CPS);
+    tl.set("#caret",{x:0,y:i*50},t);
+    tl.fromTo("#ln"+i,{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:d,ease:"steps("+n+")"},t);
+    tl.fromTo("#caret",{x:0},{x:n*17.4,duration:d,ease:"steps("+n+")"},t);
+    if(RULE[i])tl.fromTo(RULE[i],{autoAlpha:0,x:40},{autoAlpha:1,x:0,duration:.6,ease:E},t+d);
+    t+=d+.08;
+  }
+  for(var b=0;b<4;b++){tl.set("#caret",{autoAlpha:0},t+.25+b*.5);tl.set("#caret",{autoAlpha:1},t+.5+b*.5);}
+  sOut("#s2",10.75);
+
+  /* S3 send 11.2-17.6 */
+  sIn("#s3",11.2);hd("#s3",11.2);
+  tl.fromTo("#con",{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},11.45);
+  tl.fromTo("#cursor",{x:560,y:520,autoAlpha:0},{autoAlpha:1,duration:.3},12.2);
+  tl.to("#cursor",{x:150,y:530,duration:.9,ease:"power2.inOut"},12.3);
+  tl.to("#start",{scale:.94,duration:.12,yoyo:true,repeat:1,ease:"sine.inOut"},13.25);
+  tl.to("#start",{boxShadow:"0 0 40px rgba(94,234,212,.6)",duration:.25,yoyo:true,repeat:1},13.3);
+  tl.fromTo("#runtag",{autoAlpha:0,x:-10},{autoAlpha:1,x:0,duration:.4,ease:E},13.45);
+  tl.fromTo("#apic",{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},13.9);
+  tl.fromTo("#api .r",{autoAlpha:0,x:-16},{autoAlpha:1,x:0,duration:.45,ease:E,stagger:.14},14.3);
+  sOut("#s3",17.15);
+
+  /* S4 render 17.6-23.6 */
+  sIn("#s4",17.6);hd("#s4",17.6);
+  up("#cnt",17.85,30);
+  tl.fromTo("#track",{autoAlpha:0},{autoAlpha:1,duration:.4},18.0);
+  tl.fromTo("#num",{innerText:0},{innerText:2160,snap:{innerText:1},duration:3.4,ease:"power1.inOut"},18.2);
+  tl.fromTo("#fill",{scaleX:0},{scaleX:1,duration:3.4,ease:"power1.inOut"},18.2);
+  up("#c1",18.4,30);up("#a1",18.75,0);up("#c2",18.9,30);up("#a2",19.25,0);up("#c3",19.4,30);
+  tl.to("#c1",{borderColor:"rgba(94,234,212,.7)",duration:.3},18.8);
+  tl.to("#c2",{borderColor:"rgba(94,234,212,.7)",duration:.3},19.3);
+  tl.to("#c3",{borderColor:"rgba(94,234,212,.7)",duration:.3},19.8);
+  tl.to("#num",{color:"#5eead4",duration:.3},21.6);
+  up("#nothing",21.0,30);
+  sOut("#s4",23.15);
+
+  /* S5 get 23.6-29.6 */
+  sIn("#s5",23.6);hd("#s5",23.6);
+  tl.fromTo("#kvc",{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},23.85);
+  tl.fromTo(["#kv1","#kv2"],{autoAlpha:0,x:-20},{autoAlpha:1,x:0,duration:.5,ease:E,stagger:.15},24.3);
+  tl.to("#kv1 .dl",{scale:1.15,duration:.18,yoyo:true,repeat:1,ease:"sine.inOut"},25.0);
+  tl.fromTo("#dsc",{autoAlpha:0,y:50},{autoAlpha:1,y:0,duration:.8,ease:E},24.6);
+  tl.fromTo("#js .r",{autoAlpha:0,x:-16},{autoAlpha:1,x:0,duration:.45,ease:E,stagger:.12},25.0);
+  up("#keep",25.6,20);up("#price .pl",26.2,30);up("#price .pr",26.6,20);
+  sOut("#s5",29.15);
+
+  /* S6 outro 29.6-36 */
+  sIn("#s6",29.6);
+  up("#o1",29.75,60);
+  tl.fromTo("#url",{autoAlpha:0,scale:.94},{autoAlpha:1,scale:1,duration:.7,ease:"back.out(1.6)"},30.35);
+  up("#try",30.9,24);up("#made",31.2,20);
+  tl.fromTo("#disc",{autoAlpha:0},{autoAlpha:1,duration:.6},31.0);
+  tl.to("#url",{boxShadow:"0 0 50px rgba(94,234,212,.35)",duration:.6,yoyo:true,repeat:1,ease:"sine.inOut"},32.0);
+
+  tl.to({},{duration:36},0);
+  window.__timelines["tutorial"]=tl;
+  tl.seek(0);
+})();
+</script>
+</body>
+</html>
